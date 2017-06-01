@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Palabra del dia</string>
+
+    // Menu
+    <string name="menu_title_add_word">Agregar palabra</string>
+
+    // MainActivity
+    <string name="title_main">Tu palabra</string>
+    <string name="activity_main_button_name">Cambiar palabra</string>
+    <string name="activity_main_your_word">Su palabra de hoy es:</string>
+    <string name="activity_main_description_title">Definición:</string>
+
+    // AddWordActivity
+    <string name="title_add_word">Agrega una palabra</string>
+    <string name="activity_add_word_word_hint">Ingrese su palabra</string>
+    <string name="activity_add_word_description_hint">Ingrese su descripción</string>
+    <string name="activity_add_word_button_name">Agregar palabra</string>
+    <string name="activity_add_word_title">Si agregas una palabra y las demás personas también podran verla!</string>
+    <string name="Activity_add_word_allowed_digits">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="activity_add_word_empty_word">Debes agregar una palabra</string>
+    <string name="activity_add_word_empty_description">Debes agregar una descripción</string>
+    <string name="activity_add_word_added">Su palabra ha sido guardada</string>
+
+    // Loading
+    <string name="loadign_title">Espere</string>
+    <string name="loading_message">Un momento por favor</string>
+
+</resources>
