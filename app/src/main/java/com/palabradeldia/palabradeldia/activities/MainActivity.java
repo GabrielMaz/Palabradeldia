@@ -8,12 +8,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.DownloadListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.palabradeldia.palabradeldia.R;
-import com.palabradeldia.palabradeldia.services.DownloadTask;
+import com.palabradeldia.palabradeldia.services.GetWordService;
 import com.palabradeldia.palabradeldia.services.Word;
 
 import butterknife.BindView;
@@ -46,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();
 
-        DownloadTask downloadTask = new DownloadTask(MainActivity.this);
+        GetWordService downloadTask = new GetWordService(MainActivity.this);
         downloadTask.execute(wordUrl);
 
         changeWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progress.show();
-                DownloadTask downloadTask = new DownloadTask(MainActivity.this);
+                GetWordService downloadTask = new GetWordService(MainActivity.this);
                 downloadTask.execute(wordUrl);
             }
         });

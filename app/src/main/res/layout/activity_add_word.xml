@@ -36,7 +36,10 @@
                 android:layout_marginTop="20dp"
                 android:padding="5dp"
                 android:background="@drawable/shape_rectangle"
-                android:hint="@string/activity_add_word_word_hint"/>
+                android:hint="@string/activity_add_word_word_hint"
+                android:digits="@string/Activity_add_word_allowed_digits"
+                android:singleLine="true"
+                android:inputType="textCapSentences"/>
 
             <EditText
                 android:id="@+id/description"
@@ -47,10 +50,9 @@
                 android:padding="5dp"
                 android:gravity="top"
                 android:background="@drawable/shape_rectangle"
-                android:inputType="textMultiLine"
+                android:inputType="textMultiLine|textCapSentences"
                 android:lines="10"
-                android:hint="@string/activity_add_word_description_hint"
-                android:digits="@string/Activity_add_word_allowed_digits"/>
+                android:hint="@string/activity_add_word_description_hint" />
 
             <Button
                 android:id="@+id/add_word"

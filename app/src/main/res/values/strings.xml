@@ -25,4 +25,8 @@
     <string name="loadign_title">Espere</string>
     <string name="loading_message">Un momento por favor</string>
 
+    // Service
+    <string name="service_send_success_message">Su palabra ha sido agregada correctamente</string>
+    <string name="service_send_fail_message">Ocurrió un error, por favor intenta nuevamente</string>
+
 </resources>

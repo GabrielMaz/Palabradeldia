@@ -18,11 +18,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DownloadTask extends AsyncTask<String, String, Word> {
-    ProgressDialog progressDialog;
+public class GetWordService extends AsyncTask<String, String, Word> {
+
     private Activity activity;
 
-    public DownloadTask(Activity activity) {
+    public GetWordService(Activity activity) {
         this.activity = activity;
     }
 
@@ -77,6 +77,6 @@ public class DownloadTask extends AsyncTask<String, String, Word> {
     @Override
     protected void onPostExecute(Word result) {
 
-        ((MainActivity)activity).setWord(result);
+        ((MainActivity) activity).setWord(result);
     }
 }

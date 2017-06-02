@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.palabradeldia.palabradeldia.R;
+import com.palabradeldia.palabradeldia.services.SendWordService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,9 +50,10 @@ public class AddWordActivity extends AppCompatActivity{
                     Toast.makeText(AddWordActivity.this, R.string.activity_add_word_empty_description, Toast.LENGTH_LONG).show();
 
                 } else {
+                    SendWordService send = new SendWordService(AddWordActivity.this, word.getText().toString(), description.getText().toString());
+                    send.execute();
                     word.setText("");
                     description.setText("");
-                    Toast.makeText(AddWordActivity.this, R.string.activity_add_word_added, Toast.LENGTH_LONG).show();
 
                 }
             }
