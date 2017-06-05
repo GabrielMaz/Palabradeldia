@@ -2,18 +2,28 @@ package com.palabradeldia.palabradeldia.services;
 
 public class Word {
 
+    private int id;
     private String word;
     private String description;
     private int like;
     private int unlike;
     private int enabled;
 
-    public Word(String word, String description, int like, int unlike, int enabled) {
+    public Word(int id, String word, String description, int like, int unlike, int enabled) {
+        this.id = id;
         this.word = word;
         this.description = description;
         this.like = like;
         this.unlike = unlike;
         this.enabled = enabled;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getWord() {

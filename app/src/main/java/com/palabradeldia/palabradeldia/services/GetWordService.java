@@ -53,7 +53,7 @@ public class GetWordService extends AsyncTask<String, String, Word> {
             JSONObject pal = palabras.getJSONObject(0);//Como el json retorna un array de una posicion, seleccionamos la posicion 0
             // Creamos el objeto Word
             //Word p = (int, string, string, int, int, int) - id, palabra, descripcion, like, nolike, habilitado ->Esos son los campos de la bd
-            Word p = new Word(pal.getString("palabra"), pal.getString("descripcion"), pal.getInt("likes"), pal.getInt("nolikes"), pal.getInt("habilitado"));
+            Word p = new Word(pal.getInt("id"),pal.getString("palabra"), pal.getString("descripcion"), pal.getInt("likes"), pal.getInt("nolikes"), pal.getInt("habilitado"));
 
             return p;
 

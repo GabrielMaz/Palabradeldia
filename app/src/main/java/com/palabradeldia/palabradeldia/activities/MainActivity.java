@@ -9,10 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.palabradeldia.palabradeldia.R;
 import com.palabradeldia.palabradeldia.services.GetWordService;
+import com.palabradeldia.palabradeldia.services.SendVoteService;
+import com.palabradeldia.palabradeldia.services.SendWordService;
 import com.palabradeldia.palabradeldia.services.Word;
 
 import butterknife.BindView;
@@ -29,8 +33,21 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.change_word)
     Button changeWord;
 
+    @BindView(R.id.nolike)
+    ImageButton nolike;
+
+    @BindView(R.id.txtlikes)
+    TextView cantlikes;
+
+    @BindView(R.id.like)
+    ImageButton like;
+
     ProgressDialog progress;
     private String wordUrl = "http://nandorak.esy.es/palabraDelDia/app/mostrar.php";
+
+    Word palabra =null;
+    private boolean votarLike = true;
+    private boolean votarNoLike = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +73,29 @@ public class MainActivity extends AppCompatActivity {
                 downloadTask.execute(wordUrl);
             }
         });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+                if(puedoVotarLike()){
+                    SendVoteService send = new SendVoteService(MainActivity.this, String.valueOf(word.getId()), "votar");
+                    send.execute();
+                    int cant = palabra.getLike();
+                    cantlikes.setText(String.valueOf(cant+1));
+                }
+
+            }
+        });
+        nolike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(puedoVotarNoLike()){
+                    SendVoteService send = new SendVoteService(MainActivity.this, String.valueOf(word.getId()), "nomegusta");
+                    send.execute();
+                }
+            }
+        });
     }
 
     @Override
@@ -78,8 +118,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setWord(Word newWord) {
+        palabra=newWord;
+        votarLike=true;
+        votarNoLike=true;
+        nolike.setEnabled(true);
+        like.setEnabled(true);
         word.setText(newWord.getWord());
         description.setText(newWord.getDescription());
+        cantlikes.setText(String.valueOf(newWord.getLike()));
+        word.setId(newWord.getId());
         progress.dismiss();
     }
+
+    private boolean puedoVotarLike(){
+        if (votarLike){
+            votarLike = false;
+            like.setEnabled(false);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean puedoVotarNoLike(){
+        if (votarNoLike){
+            votarNoLike = false;
+            nolike.setEnabled(false);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
