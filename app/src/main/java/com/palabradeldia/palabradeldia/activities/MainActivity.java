@@ -9,14 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.palabradeldia.palabradeldia.Calculate;
 import com.palabradeldia.palabradeldia.R;
 import com.palabradeldia.palabradeldia.services.GetWordService;
 import com.palabradeldia.palabradeldia.services.SendVoteService;
-import com.palabradeldia.palabradeldia.services.SendWordService;
 import com.palabradeldia.palabradeldia.services.Word;
 
 import butterknife.BindView;
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.word)
-    TextView word;
+    TextView textWord;
 
     @BindView(R.id.description)
     TextView description;
@@ -33,21 +33,25 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.change_word)
     Button changeWord;
 
-    @BindView(R.id.nolike)
-    ImageButton nolike;
-
-    @BindView(R.id.txtlikes)
-    TextView cantlikes;
-
     @BindView(R.id.like)
-    ImageButton like;
+    ImageView like;
 
-    ProgressDialog progress;
+    @BindView(R.id.dislike)
+    ImageView dislikes;
+
+    @BindView(R.id.txtlLkes)
+    TextView cantLikes;
+
+    @BindView(R.id.txtDislikes)
+    TextView cantDislikes;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
+    private ProgressDialog progress;
     private String wordUrl = "http://nandorak.esy.es/palabraDelDia/app/mostrar.php";
-
-    Word palabra =null;
-    private boolean votarLike = true;
-    private boolean votarNoLike = true;
+    private Word word =null;
+    private boolean voted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,21 +82,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View view) {
-                if(puedoVotarLike()){
+
+                if (!voted) {
+                    progressBar.setProgress(Calculate.calculatePercentage(word.getLike() + 1, word.getUnlike()));
                     SendVoteService send = new SendVoteService(MainActivity.this, String.valueOf(word.getId()), "votar");
                     send.execute();
-                    int cant = palabra.getLike();
-                    cantlikes.setText(String.valueOf(cant+1));
+                    cantLikes.setText(String.valueOf(word.getLike() + 1));
+                    voted = true;
                 }
 
             }
         });
-        nolike.setOnClickListener(new View.OnClickListener() {
+        dislikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(puedoVotarNoLike()){
+
+                if (!voted) {
+                    progressBar.setProgress(Calculate.calculatePercentage(word.getLike(), word.getUnlike() + 1));
                     SendVoteService send = new SendVoteService(MainActivity.this, String.valueOf(word.getId()), "nomegusta");
                     send.execute();
+                    cantDislikes.setText(String.valueOf(word.getUnlike() + 1));
+                    voted = true;
                 }
             }
         });
@@ -118,37 +128,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setWord(Word newWord) {
-        palabra=newWord;
-        votarLike=true;
-        votarNoLike=true;
-        nolike.setEnabled(true);
+        word =newWord;
+        dislikes.setEnabled(true);
         like.setEnabled(true);
-        word.setText(newWord.getWord());
-        description.setText(newWord.getDescription());
-        cantlikes.setText(String.valueOf(newWord.getLike()));
-        word.setId(newWord.getId());
+        voted = false;
+        textWord.setText(word.getWord());
+        description.setText(word.getDescription());
+        cantLikes.setText(String.valueOf(word.getLike()));
+        cantDislikes.setText(String.valueOf(word.getUnlike()));
+        word.setId(word.getId());
+        progressBar.setProgress(Calculate.calculatePercentage(word.getLike(), word.getUnlike()));
         progress.dismiss();
     }
-
-    private boolean puedoVotarLike(){
-        if (votarLike){
-            votarLike = false;
-            like.setEnabled(false);
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    private boolean puedoVotarNoLike(){
-        if (votarNoLike){
-            votarNoLike = false;
-            nolike.setEnabled(false);
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
 }

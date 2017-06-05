@@ -58,39 +58,60 @@
         android:textColor="@color/white"
         android:textStyle="bold"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-        <ImageButton
-            android:id="@+id/nolike"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/arrow_down_float" />
-
-        <ImageButton
+        <ImageView
             android:id="@+id/like"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/arrow_up_float"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:id="@+id/txtlikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/like"
-            android:layout_toStartOf="@+id/like"
-            android:text="0"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:src="@mipmap/like"
+            android:tint="@color/colorPrimaryDark" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/txtlLkes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/txtDislikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            tools:text="0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/dislike"
+            android:tint="@color/colorPrimaryDark"/>
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/CustomProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="100"
+        android:background="@drawable/border"/>
 
 
 </LinearLayout>
