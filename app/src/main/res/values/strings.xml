@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Palabra del dia</string>
+    <string name="app_name">Word Update</string>
 
     // Menu
     <string name="menu_title_add_word">Agregar palabra</string>
