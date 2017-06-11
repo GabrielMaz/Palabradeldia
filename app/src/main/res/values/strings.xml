@@ -21,6 +21,9 @@
     <string name="activity_add_word_empty_description">Debes agregar una descripción</string>
     <string name="activity_add_word_added">Su palabra ha sido guardada</string>
 
+    //QuizActivity
+    <string name="title_quiz">Tu definicion es:</string>
+
     // Loading
     <string name="loadign_title">Espere</string>
     <string name="loading_message">Un momento por favor</string>

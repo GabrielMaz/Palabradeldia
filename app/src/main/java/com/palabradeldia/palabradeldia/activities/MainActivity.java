@@ -121,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_title_add_word:
                 startActivity(new Intent(MainActivity.this, AddWordActivity.class));
                 return true;
-
+            case R.id.menu_title_quiz:
+                startActivity(new Intent(MainActivity.this, QuizActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
