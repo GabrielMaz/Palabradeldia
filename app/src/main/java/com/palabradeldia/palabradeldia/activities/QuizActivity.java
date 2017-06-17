@@ -102,6 +102,7 @@ public class QuizActivity extends AppCompatActivity {
             acuCorrectas++;
             correctas.setText("Correctas: "+String.valueOf(acuCorrectas));
         }else{
+            Toast.makeText(context,"Fallaste",Toast.LENGTH_SHORT).show();
             b.setBackgroundColor(colorRojo);
             if(acuCorrectas>recordActual){
                 prefs.edit().putInt("record",acuCorrectas).apply();
@@ -112,17 +113,23 @@ public class QuizActivity extends AppCompatActivity {
                 alertDialog.setTitle("Nuevo record!!");
                 alertDialog.setMessage("Si deseas puedes compartir tu puntaje con tus amigos e insitarlos a que te superen...si pueden");
 
-                alertDialog.setCancelable(true);
+                alertDialog.setCancelable(false);
                 alertDialog.setPositiveButton("Compartir", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         share();
                     }
                 });
+                alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
                 alertDialog.show();
                 //**********************
+                recordActual=acuCorrectas;
             }
             correctas.setText("Correctas: 0");
-            recordActual=acuCorrectas;
+
             acuCorrectas=0;
         }
         refrescar();
@@ -131,7 +138,7 @@ public class QuizActivity extends AppCompatActivity {
     public void refrescar(){
         try {
             //set time in mili
-            Thread.sleep(700);
+            Thread.sleep(500);
             GetQuizService downloadTask = new GetQuizService(QuizActivity.this);
             downloadTask.execute(quizUrl);
 
