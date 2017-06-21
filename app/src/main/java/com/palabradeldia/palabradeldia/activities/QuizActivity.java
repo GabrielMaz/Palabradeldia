@@ -70,25 +70,48 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void setWord(Word newWord) {
-        opciones = new ArrayList();
-        word =newWord;
-        description.setText(word.getDescription());
-        opciones.add(word.getResp1());
-        opciones.add(word.getResp2());
-        opciones.add(word.getResp3());
-        if(posicion()==3){
-            opciones.add(word.getWord());
+        if(newWord.getId()!=-1){
+            opciones = new ArrayList();
+            word =newWord;
+            description.setText(word.getDescription());
+            opciones.add(word.getResp1());
+            opciones.add(word.getResp2());
+            opciones.add(word.getResp3());
+            if(posicion()==3){
+                opciones.add(word.getWord());
+            }else{
+                opciones.add(posicion(),word.getWord());
+            }
+            btn1.setText(opciones.get(0).toString());
+            btn2.setText(opciones.get(1).toString());
+            btn3.setText(opciones.get(2).toString());
+            btn4.setText(opciones.get(3).toString());
+            btn1.setBackgroundColor(colorNaranja);
+            btn2.setBackgroundColor(colorNaranja);
+            btn3.setBackgroundColor(colorNaranja);
+            btn4.setBackgroundColor(colorNaranja);
         }else{
-            opciones.add(posicion(),word.getWord());
+            //******************
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(QuizActivity.this);
+            // Setting Dialog Message
+            alertDialog.setTitle("Error de coneccion...");
+            alertDialog.setMessage("Verifica tu coneccion a internet");
+
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    refrescar();
+                }
+            });
+            alertDialog.setNegativeButton("Salir", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which) {
+                    System.exit(0);
+                }
+            });
+            alertDialog.show();
+            //**********************
         }
-        btn1.setText(opciones.get(0).toString());
-        btn2.setText(opciones.get(1).toString());
-        btn3.setText(opciones.get(2).toString());
-        btn4.setText(opciones.get(3).toString());
-        btn1.setBackgroundColor(colorNaranja);
-        btn2.setBackgroundColor(colorNaranja);
-        btn3.setBackgroundColor(colorNaranja);
-        btn4.setBackgroundColor(colorNaranja);
+
     }
 
     public int posicion(){
