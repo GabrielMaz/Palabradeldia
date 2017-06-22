@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/menu_title_quiz"
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/star"
         android:title="Item"
         compact:showAsAction="always" />
     <item
         android:id="@+id/menu_title_add_word"
         android:icon="@mipmap/add"
         android:title="@string/menu_title_add_word"
-        compact:showAsAction="always" />
+        compact:showAsAction="ifRoom" />
 
 </menu>
