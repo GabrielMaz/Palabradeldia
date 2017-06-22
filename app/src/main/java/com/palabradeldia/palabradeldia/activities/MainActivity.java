@@ -1,6 +1,8 @@
 package com.palabradeldia.palabradeldia.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         changeWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progress.show();
+                //progress.show();
                 GetWordService downloadTask = new GetWordService(MainActivity.this);
                 downloadTask.execute(wordUrl);
             }
@@ -130,16 +132,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setWord(Word newWord) {
-        word =newWord;
-        dislikes.setEnabled(true);
-        like.setEnabled(true);
-        voted = false;
-        textWord.setText(word.getWord());
-        description.setText(word.getDescription());
-        cantLikes.setText(String.valueOf(word.getLike()));
-        cantDislikes.setText(String.valueOf(word.getUnlike()));
-        word.setId(word.getId());
-        progressBar.setProgress(Calculate.calculatePercentage(word.getLike(), word.getUnlike()));
-        progress.dismiss();
+        if(newWord.getId()!=-1){
+            word =newWord;
+            dislikes.setEnabled(true);
+            like.setEnabled(true);
+            voted = false;
+            textWord.setText(word.getWord());
+            description.setText(word.getDescription());
+            cantLikes.setText(String.valueOf(word.getLike()));
+            cantDislikes.setText(String.valueOf(word.getUnlike()));
+            word.setId(word.getId());
+            progressBar.setProgress(Calculate.calculatePercentage(word.getLike(), word.getUnlike()));
+            progress.dismiss();
+        }else{
+            //******************
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+            // Setting Dialog Message
+            alertDialog.setTitle("Error de coneccion...");
+            alertDialog.setMessage("Verifica tu coneccion a internet");
+
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    GetWordService downloadTask = new GetWordService(MainActivity.this);
+                    downloadTask.execute(wordUrl);
+                }
+            });
+            alertDialog.setNegativeButton("Salir", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which) {
+                    System.exit(0);
+                }
+            });
+            alertDialog.show();
+            //**********************
+        }
+
     }
 }

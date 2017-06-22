@@ -71,7 +71,7 @@ public class GetWordService extends AsyncTask<String, String, Word> {
                 }
             }
         }
-        return null;
+        return new Word(-1,"trucha","soy re trucha",0,0,1);
     }
 
     @Override
